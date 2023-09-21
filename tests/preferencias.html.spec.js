@@ -53,6 +53,17 @@ test.describe("preferencias.html", () => {
     await expect(page.locator("main > h1+p > a")).toHaveCount(2);
   });
 
+  
+  test('O primeiro parágrafo deve ter o texto como solicitado', async ({ page }) => {
+    await page.goto(`file://${process.cwd()}/preferencias.html`);
+    const p = page.locator("main > h1+p");
+    await expect(p).toHaveText(/Esta é a página sobre minhas preferências entre os personagens. Temos também a página sobre personagens e a página principal./);
+  });
+  
+  
+
+  
+  
   test('O primeiro link deve levar para uma página sobre personagens', async ({ page }) => {
     await page.goto(`file://${process.cwd()}/preferencias.html`);
     const link = page.locator("main > h1+p > a:first-child");
@@ -60,16 +71,7 @@ test.describe("preferencias.html", () => {
     await expect(link).toHaveText("personagens");
   });
 
-  test('O primeiro parágrafo deve ter o texto como solicitado', async ({ page }) => {
-    await page.goto(`file://${process.cwd()}/preferencias.html`);
-    const p = page.locator("main > h1+p");
-    await expect(p).toHaveText("Esta é a página sobre minhas preferências entre os personagens. Temos também a página sobre personagens e a página principal.");
-  });
-
-
-  
-
-  test('O segundo link deve levar para a página principal', async ({ page }) => {
+ test('O segundo link deve levar para a página principal', async ({ page }) => {
     await page.goto(`file://${process.cwd()}/preferencias.html`);
     const link = page.locator("main > h1+p > a:nth-child(2)");
     await expect(link).toHaveAttribute("href", "index.html");
